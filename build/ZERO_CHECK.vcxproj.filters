@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\admin\Downloads\6thsem\hp\proopen\build\CMakeFiles\1566b50ea7c397d16b46422df4890a86\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A4FBBA44-0073-35E8-B438-2F46946AC361}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

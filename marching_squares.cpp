@@ -5,7 +5,6 @@
 #include <omp.h>
 #include <string>
 
-// 2D scalar field class
 class ScalarField {
 private:
     int width, height;
@@ -14,7 +13,6 @@ private:
 public:
     ScalarField(int w, int h) : width(w), height(h), data(w * h, 0.0f) {}
 
-    // Load field data from a PGM image (simple grayscale format)
     bool loadFromPGM(const std::string& filename) {
         std::ifstream file(filename, std::ios::binary);
         if (!file) {
@@ -22,7 +20,6 @@ public:
             return false;
         }
 
-        // Check magic number (P5 for binary PGM)
         std::string magic;
         file >> magic;
         if (magic != "P5" && magic != "P2") {
@@ -30,21 +27,19 @@ public:
             return false;
         }
 
-        // Skip comments
-        file.get(); // Skip whitespace
+        // Skip comments and whitespace
+        file.get(); 
         char c = file.peek();
         while (c == '#') {
             file.ignore(10000, '\n');
             c = file.peek();
         }
 
-        // Read dimensions and max value
         file >> width >> height;
         int maxVal;
         file >> maxVal;
         file.get(); // Skip whitespace after maxVal
 
-        // Resize data vector to match image dimensions
         data.resize(width * height);
 
         // Read image data
@@ -85,7 +80,7 @@ public:
             }
         }
     }
-
+    
     float get(int x, int y) const {
         if (x < 0 || x >= width || y < 0 || y >= height)
             return 0.0f;
@@ -166,7 +161,7 @@ public:
                         
                         // Determine the first point
                         switch (caseConfig[i]) {
-                            case 0: p1 = interpolate(x, y, v0, x + 1, y, v1, isoLevel); break;
+                            case 0: p1 = interpolate(x, y, v0, x + 1, y , v1, isoLevel); break;
                             case 1: p1 = interpolate(x + 1, y, v1, x + 1, y + 1, v2, isoLevel); break;
                             case 2: p1 = interpolate(x + 1, y + 1, v2, x, y + 1, v3, isoLevel); break;
                             case 3: p1 = interpolate(x, y + 1, v3, x, y, v0, isoLevel); break;
@@ -361,6 +356,7 @@ const int MarchingSquares::CASE_TABLE[16][5] = {
 
 int main(int argc, char* argv[]) {
     if (argc < 3) {
+        /*
         std::cout << "Usage: " << argv[0] << " <input_file.pgm> <output_file.svg|ppm> [num_contours=10]" << std::endl;
         std::cout << "If no input file is provided or it fails to load, a test field will be generated." << std::endl;
         
@@ -390,6 +386,9 @@ int main(int argc, char* argv[]) {
         
         std::cout << "Test output saved to test_output.svg and test_output.ppm" << std::endl;
         return 0;
+        */
+       std::cout<<"ENter 3 inputs "<<std::endl;
+       return 0;
     }
     
     std::string inputFile = argv[1];
@@ -417,7 +416,8 @@ int main(int argc, char* argv[]) {
     // Generate iso-levels
     std::vector<float> isoLevels;
     for (int i = 0; i < numContours; i++) {
-        isoLevels.push_back(static_cast<float>(i + 1) / (numContours + 1));
+       isoLevels.push_back(static_cast<float>(i + 1) / (numContours + 1));
+       //isoLevels.push_back(static_cast<float>(8) / (numContours + 1));
     }
     
     // Set number of OpenMP threads
